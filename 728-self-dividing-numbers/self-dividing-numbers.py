@@ -1,17 +1,17 @@
-class Solution(object):
-    def selfDividingNumbers(self, left, right):
-        ans=[]
-        for i in range(left,right+1):
-            fl,a=0,i
-            if '0' in str(i):
-                fl=1
-            else:
-                while a!=0:
-                    if i%(a%10)!=0:
-                        fl=1
-                        break
-                    a=a//10
-            if fl==0:
-                ans.append(i)
-        return ans
+class Solution:
+    def selfDividingNumbers(self, left: int, right: int) -> List[int]:
+        def _is_self_dividing(num):
+            x = num
+            while x:
+                digit = x % 10
+                if digit == 0 or num % digit != 0:
+                    return False
+                x //= 10
+            
+            return True
+        ans = []
+        for num in range(left, right + 1):
+            if _is_self_dividing(num):
+                ans.append(num)
         
+        return ans
