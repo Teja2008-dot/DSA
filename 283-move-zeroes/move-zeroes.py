@@ -1,8 +1,8 @@
-class Solution:
-    def moveZeroes(self, nums: list) -> None:
-        slow = 0
-        for fast in range(len(nums)):
-            if nums[fast] != 0 and nums[slow] == 0:
-                nums[slow], nums[fast] = nums[fast], nums[slow]
-            if nums[slow] != 0:
-                slow += 1
+class Solution(object):
+    def moveZeroes(self, nums):
+        non_zero = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[non_zero] = nums[non_zero], nums[i]
+                non_zero += 1
+        
