@@ -1,19 +1,28 @@
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        if not nums:
+        if len(nums) <= 1:
             return nums
-        
-        min_val, max_val = min(nums), max(nums)
-        count = [0] * (max_val - min_val + 1)
-        
-        for num in nums:
-            count[num - min_val] += 1
-        
-        index = 0
-        for i in range(len(count)):
-            while count[i] > 0:
-                nums[index] = i + min_val
-                index += 1
-                count[i] -= 1
-        
-        return nums
+
+        mid = len(nums) // 2
+
+        left = self.sortArray(nums[:mid])
+        right = self.sortArray(nums[mid:])    
+
+        return self.merge(left, right)
+
+    def merge(self, left, right):
+        result = []
+        i = j = 0
+
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                result.append(left[i])
+                i += 1
+            else:
+                result.append(right[j])
+                j += 1
+
+        result.extend(left[i:])
+        result.extend(right[j:])
+
+        return result                
