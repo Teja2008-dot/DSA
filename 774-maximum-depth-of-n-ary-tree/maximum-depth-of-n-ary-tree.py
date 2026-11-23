@@ -8,9 +8,15 @@ class Node:
 
 class Solution:
     def maxDepth(self, root: 'Node') -> int:
+        depth = 0
+        def dfs(cur: 'Node' | None):
+            if not cur:
+                return 0
+            
+            best = 0
+            for child in cur.children or []:
+                best = max(best, dfs(child))
+            return best + 1
 
-        if not root:
-            return 0
-
-        return 1 + max((self.maxDepth(child) for child in root.children), default=0)
+        return dfs(root)
         
