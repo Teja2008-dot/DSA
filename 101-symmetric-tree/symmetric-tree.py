@@ -1,20 +1,12 @@
 class Solution:
     def isSymmetric(self, root):
-        if not root:
-            return True
+        def dfs(a, b):
+            if not a or not b:
+                return a == b
 
-        stack = [(root.left, root.right)]
-
-        while stack:
-            left, right = stack.pop()
-
-            if not left and not right:
-                continue
-
-            if not left or not right or left.val != right.val:
+            if a.val != b.val:
                 return False
 
-            stack.append((left.left, right.right))
-            stack.append((left.right, right.left))
+            return dfs(a.left, b.right) and dfs(a.right, b.left)
 
-        return True
+        return dfs(root.left, root.right) if root else True
